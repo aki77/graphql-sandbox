@@ -20,6 +20,7 @@ gem 'webpacker'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'graphql'
+gem 'vue_custom_element_rails', github: 'SonicGarden/vue-custom-element-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -33,6 +34,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'solargraph'
+  gem 'graphiql-rails'
 end
 
 group :test do
@@ -42,5 +44,3 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
-
-gem 'graphiql-rails', group: :development

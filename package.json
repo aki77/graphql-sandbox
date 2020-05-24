@@ -7,6 +7,7 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
+    "@sonicgarden/vue-custom-element-rails": "^0.2.1",
     "babel-preset-typescript-vue": "^1.1.1",
     "typescript": "^3.9.3",
     "vue": "^2.6.11",
@@ -15,6 +16,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "acorn": "^7.2.0",
     "webpack-dev-server": "^3.11.0",
     "xo": "^0.30.0"
   }
