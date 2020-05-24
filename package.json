@@ -2,13 +2,20 @@
   "name": "graphql_sandbox",
   "private": true,
   "dependencies": {
+    "@babel/preset-typescript": "^7.9.0",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "4.2.2"
+    "@rails/webpacker": "4.2.2",
+    "babel-preset-typescript-vue": "^1.1.1",
+    "typescript": "^3.9.3",
+    "vue": "^2.6.11",
+    "vue-loader": "^15.9.2",
+    "vue-template-compiler": "^2.6.11"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "xo": "^0.30.0"
   }
 }
