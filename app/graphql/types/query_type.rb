@@ -1,13 +1,9 @@
 module Types
   class QueryType < Types::BaseObject
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
+    field :chat_room_messages, Types::ChatRoomMessageType.connection_type, null: false
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+    def chat_room_messages
+      ChatRoomMessage.order(id: :desc)
     end
   end
 end
