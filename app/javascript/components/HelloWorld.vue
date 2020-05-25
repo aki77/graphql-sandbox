@@ -5,16 +5,16 @@
 <script lang="ts">
 import Vue from "vue";
 import gql from "graphql-tag";
-import type { GetChatRoomMessages } from "./types/GetChatRoomMessages";
+import type { GetChatRoomMessagesTest } from "./types/GetChatRoomMessagesTest";
 
 type Data = {
-  chatRoomMessages?: GetChatRoomMessages['chatRoomMessages'];
+  chatRoomMessages?: GetChatRoomMessagesTest['chatRoomMessages'];
 };
 
 export default Vue.extend({
   apollo: {
     chatRoomMessages: gql`
-      query GetChatRoomMessages {
+      query GetChatRoomMessagesTest {
         chatRoomMessages(chatRoomId: 1) {
           content
           createdAt

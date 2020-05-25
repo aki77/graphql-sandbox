@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h1>
   <%= @chat_room.name %>
-</p>
+</h1>
+
+<chat-room chat-room-id="<%= @chat_room.id %>"></chat-room>
 
 <%= link_to 'Back', chat_rooms_path %>

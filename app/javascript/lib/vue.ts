@@ -7,6 +7,7 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 import {setContext} from 'apollo-link-context';
 import Rails from '@rails/ujs';
 import HelloWorld from '../components/HelloWorld.vue';
+import ChatRoom from '../components/ChatRoom.vue';
 
 export default function () {
 	// HTTP connection to the API
@@ -40,4 +41,5 @@ export default function () {
 	});
 
 	registerCustomElement('hello-world', HelloWorld, {vueOptions: {apolloProvider}});
+	registerCustomElement('chat-room', ChatRoom, {vueOptions: {apolloProvider}});
 }
