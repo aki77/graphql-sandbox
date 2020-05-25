@@ -3,18 +3,33 @@
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es6", "dom"],
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "module": "es6",
     "moduleResolution": "node",
     "baseUrl": ".",
+    "rootDir": "app/javascript",
     "paths": {
-      "*": ["node_modules/*", "app/javascript/*"]
+      "*": [
+        "node_modules/*",
+        "app/javascript/*"
+      ]
     },
     "sourceMap": true,
     "target": "es5",
     "strict": true,
-    "noEmit": true
+    "noEmit": true,
+    "types": [
+      "vue-apollo"
+    ]
   },
-  "exclude": ["**/*.spec.ts", "node_modules", "vendor", "public"],
+  "exclude": [
+    "**/*.spec.ts",
+    "node_modules",
+    "vendor",
+    "public"
+  ],
   "compileOnSave": false
 }
