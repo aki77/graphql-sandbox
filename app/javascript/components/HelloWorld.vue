@@ -5,10 +5,10 @@
 <script lang="ts">
 import Vue from "vue";
 import gql from "graphql-tag";
-import type { GetChatRoomMessages_chatRoomMessages } from "./types/GetChatRoomMessages";
+import type { GetChatRoomMessages } from "./types/GetChatRoomMessages";
 
 type Data = {
-  chatRoomMessages?: GetChatRoomMessages_chatRoomMessages;
+  chatRoomMessages?: GetChatRoomMessages['chatRoomMessages'];
 };
 
 export default Vue.extend({
@@ -16,11 +16,8 @@ export default Vue.extend({
     chatRoomMessages: gql`
       query GetChatRoomMessages {
         chatRoomMessages(chatRoomId: 1) {
-          edges {
-            node {
-              content
-            }
-          }
+          content
+          createdAt
         }
       }
     `
@@ -40,7 +37,7 @@ export default Vue.extend({
     window.setTimeout(() => {
       if (!this.chatRoomMessages) return;
 
-      console.log(this.chatRoomMessages.edges);
+      console.log(this.chatRoomMessages);
     }, 3000);
   }
 });
