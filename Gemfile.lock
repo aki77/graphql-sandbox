@@ -163,6 +163,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.1.4)
     regexp_parser (1.7.0)
     reverse_markdown (1.4.0)
       nokogiri
@@ -259,6 +260,7 @@ DEPENDENCIES
   listen
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.1)
+  redis
   sass-rails (>= 6)
   selenium-webdriver
   solargraph
