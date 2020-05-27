@@ -43,6 +43,34 @@ export default Vue.extend({
         return {
           chatRoomId: this.chatRoomId
         }
+      },
+      subscribeToMore: {
+        document: gql`
+          subscription SubscribeChatRoomMessageWasCreated($chatRoomId: ID!) {
+            chatRoomMessageWasCreated(chatRoomId: $chatRoomId) {
+              chatRoomMessage {
+                id
+                content
+                createdAt
+              }
+            }
+          }
+        `,
+        updateQuery: (previousResult, { subscriptionData }) => {
+          console.log('updateQuery', previousResult, subscriptionData.data)
+          if (previousResult.chatRoomMessages.some((chatMessage) => chatMessage.id === subscriptionData.data.chatRoomMessageWasCreated.chatRoomMessage.id)) {
+            return previousResult
+          }
+
+          return {
+            chatRoomMessages: [...previousResult.chatRoomMessages, subscriptionData.data.chatRoomMessageWasCreated.chatRoomMessage]
+          };
+        },
+        variables(): GetChatRoomMessagesVariables {
+          return {
+            chatRoomId: this.chatRoomId
+          }
+        },
       }
     }
   },

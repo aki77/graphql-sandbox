@@ -23,7 +23,8 @@
     "noEmit": true,
     "types": [
       "vue-apollo"
-    ]
+    ],
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "**/*.spec.ts",

@@ -32,6 +32,8 @@ class GraphqlChannel < ApplicationCable::Channel
     # Track the subscription here so we can remove it
     # on unsubscribe.
     @subscription_ids << result.context[:subscription_id] if result.context[:subscription_id]
+    Rails.logger.info 'hoge'
+    Rails.logger.info @subscription_ids
 
     transmit(payload)
   end
