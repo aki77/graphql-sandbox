@@ -11,9 +11,26 @@ module Types
     #   ChatRoomMessage.where(chat_room_id: chat_room_id).order(id: :desc)
     # end
 
+    field :chat_room, Types::ChatRoomType, null: false do
+      description 'チャットルームを取得します'
+      argument :id, ID, required: true
+    end
+
+    field :chat_rooms, [Types::ChatRoomType], null: false do
+      description 'チャットルームを全て取得します'
+    end
+
     field :chat_room_messages, [Types::ChatRoomMessageType], null: false do
       description 'メッセージを全て取得します'
       argument :chat_room_id, ID, required: true
+    end
+
+    def chat_room(id:)
+      Loaders::RecordLoader.for(ChatRoom).load(id.to_i)
+    end
+
+    def chat_rooms
+      ChatRoom.all
     end
 
     def chat_room_messages(chat_room_id:)

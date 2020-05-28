@@ -2,7 +2,7 @@
 
 <h1>Chat Rooms</h1>
 
-<hello-world hello="hogehoge"></hello-world>
+<%# <hello-world hello="hogehoge"></hello-world> %>
 
 <table>
   <thead>
@@ -16,6 +16,7 @@
     <% @chat_rooms.each do |chat_room| %>
       <tr>
         <td><%= chat_room.name %></td>
+        <td><like-count id="<%= chat_room.id %>"></like-count></td>
         <td><%= link_to 'Show', chat_room %></td>
         <td><%= link_to 'Destroy', chat_room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

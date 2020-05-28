@@ -20,6 +20,7 @@ gem 'webpacker'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'graphql'
+gem 'graphql-batch'
 gem 'vue_custom_element_rails', github: 'SonicGarden/vue-custom-element-rails'
 gem 'redis'
 

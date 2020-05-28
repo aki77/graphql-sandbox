@@ -2,7 +2,7 @@ module.exports = {
 	client: {
 		service: {
 			name: 'graphql-sandbox',
-			url: 'http://graphql-sandbox.test/graphql'
+			url: 'http://localhost:3000/graphql'
 		},
 		includes: [
 			'app/javascript/**/*.vue',

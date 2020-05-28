@@ -4,15 +4,32 @@ class GraphqlController < ApplicationController
   skip_before_action :verify_authenticity_token, if: -> { Rails.env.development? && params[:operationName] == 'IntrospectionQuery' }
 
   def execute
-    variables = ensure_hash(params[:variables])
-    query = params[:query]
-    operation_name = params[:operationName]
     context = {
       # Query context goes here, for example:
       # current_user: current_user,
     }
-    result = GraphqlSandboxSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
-    render json: result
+
+    result =
+      if params[:_json]
+        queries = params[:_json].map do |param|
+          {
+            query: param[:query],
+            operation_name: param[:operationName],
+            variables: ensure_hash(param[:variables]),
+            context: context
+          }
+        end
+        GraphqlSandboxSchema.multiplex(queries)
+      else
+        GraphqlSandboxSchema.execute(
+          params[:query],
+          operation_name: params[:operationName],
+          variables: ensure_hash(params[:variables]),
+          context: context
+        )
+      end
+
+    render json: result, root: false
   rescue StandardError => e
     raise e unless Rails.env.development?
 

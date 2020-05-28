@@ -1,17 +1,23 @@
 <template>
-  <p>{{ hello }}</p>
+  <div>
+    <p>{{ hello }}</p>
+    <!-- <LikeCount id="1" />
+    <LikeCount id="2" />-->
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import gql from "graphql-tag";
 import type { GetChatRoomMessagesTest } from "./types/GetChatRoomMessagesTest";
+import LikeCount from "./LikeCount.vue";
 
 type Data = {
   chatRoomMessages?: GetChatRoomMessagesTest['chatRoomMessages'];
 };
 
 export default Vue.extend({
+  components: { LikeCount },
   apollo: {
     chatRoomMessages: gql`
       query GetChatRoomMessagesTest {
