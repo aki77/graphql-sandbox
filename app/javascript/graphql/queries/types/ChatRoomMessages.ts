@@ -4,23 +4,23 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetChatRoomMessages
+// GraphQL query operation: ChatRoomMessages
 // ====================================================
 
-export interface GetChatRoomMessages_chatRoomMessages {
+export interface ChatRoomMessages_chatRoomMessages {
   __typename: "ChatRoomMessage";
   id: string;
   content: string;
   createdAt: any;
 }
 
-export interface GetChatRoomMessages {
+export interface ChatRoomMessages {
   /**
    * メッセージを全て取得します
    */
-  chatRoomMessages: GetChatRoomMessages_chatRoomMessages[];
+  chatRoomMessages: ChatRoomMessages_chatRoomMessages[];
 }
 
-export interface GetChatRoomMessagesVariables {
+export interface ChatRoomMessagesVariables {
   chatRoomId: string;
 }

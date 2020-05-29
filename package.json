@@ -31,5 +31,8 @@
     "acorn": "^7.2.0",
     "webpack-dev-server": "^3.11.0",
     "xo": "^0.30.0"
+  },
+  "scripts": {
+    "apollo-codegen": "cd app/javascript; npx apollo client:codegen --target typescript types"
   }
 }

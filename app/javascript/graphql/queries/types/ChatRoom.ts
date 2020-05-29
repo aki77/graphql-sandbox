@@ -4,21 +4,21 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetChatRoom
+// GraphQL query operation: ChatRoom
 // ====================================================
 
-export interface GetChatRoom_chatRoom {
+export interface ChatRoom_chatRoom {
   __typename: "ChatRoom";
   likeCount: number;
 }
 
-export interface GetChatRoom {
+export interface ChatRoom {
   /**
    * チャットルームを取得します
    */
-  chatRoom: GetChatRoom_chatRoom;
+  chatRoom: ChatRoom_chatRoom;
 }
 
-export interface GetChatRoomVariables {
+export interface ChatRoomVariables {
   id: string;
 }

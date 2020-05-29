@@ -16,125 +16,122 @@
 
 <script lang="ts">
 import Vue from "vue";
-import gql from "graphql-tag";
-import type { GetChatRoomMessages, GetChatRoomMessagesVariables } from "./types/GetChatRoomMessages";
-import { CreateChatRoomMessage } from "./types/CreateChatRoomMessage";
+import {
+  SUBSCRIBE_CHAT_ROOM_MESSAGE_WAS_CREATED,
+  CREATE_CHAT_ROOM_MESSAGE,
+  CHAT_ROOM_MESSAGES
+} from "../graphql";
+import {
+  SubscribeChatRoomMessageWasCreated,
+  CreateChatRoomMessage,
+  CreateChatRoomMessageVariables,
+  ChatRoomMessages,
+  ChatRoomMessagesVariables
+} from "../graphql/types";
 
 type Data = {
-  chatRoomMessages?: GetChatRoomMessages['chatRoomMessages'];
-  content: string
+  chatRoomMessages?: ChatRoomMessages["chatRoomMessages"];
+  content: string;
 };
-
-const GET_CHAT_ROOM_MESSAGES_QUERY = gql`
-  query GetChatRoomMessages($chatRoomId: ID!) {
-    chatRoomMessages(chatRoomId: $chatRoomId) {
-      id
-      content
-      createdAt
-    }
-  }
-`
 
 export default Vue.extend({
   apollo: {
     chatRoomMessages: {
-      query: GET_CHAT_ROOM_MESSAGES_QUERY,
-      variables(): GetChatRoomMessagesVariables {
+      query: CHAT_ROOM_MESSAGES,
+      variables(): ChatRoomMessagesVariables {
         return {
           chatRoomId: this.chatRoomId
-        }
+        };
       },
       subscribeToMore: {
-        document: gql`
-          subscription SubscribeChatRoomMessageWasCreated($chatRoomId: ID!) {
-            chatRoomMessageWasCreated(chatRoomId: $chatRoomId) {
-              chatRoomMessage {
-                id
-                content
-                createdAt
-              }
-            }
-          }
-        `,
+        document: SUBSCRIBE_CHAT_ROOM_MESSAGE_WAS_CREATED,
         updateQuery: (previousResult, { subscriptionData }) => {
-          console.log('updateQuery', previousResult, subscriptionData.data)
-          if (previousResult.chatRoomMessages.some((chatMessage) => chatMessage.id === subscriptionData.data.chatRoomMessageWasCreated.chatRoomMessage.id)) {
-            return previousResult
+          console.log("updateQuery", previousResult, subscriptionData.data);
+          if (
+            previousResult.chatRoomMessages.some(
+              chatMessage =>
+                chatMessage.id ===
+                subscriptionData.data.chatRoomMessageWasCreated.chatRoomMessage
+                  .id
+            )
+          ) {
+            return previousResult;
           }
 
           return {
-            chatRoomMessages: [...previousResult.chatRoomMessages, subscriptionData.data.chatRoomMessageWasCreated.chatRoomMessage]
+            chatRoomMessages: [
+              ...previousResult.chatRoomMessages,
+              subscriptionData.data.chatRoomMessageWasCreated.chatRoomMessage
+            ]
           };
         },
-        variables(): GetChatRoomMessagesVariables {
+        variables(): ChatRoomMessagesVariables {
           return {
             chatRoomId: this.chatRoomId
-          }
-        },
+          };
+        }
       }
     }
   },
   props: {
     chatRoomId: {
       type: String,
-      required: true,
+      required: true
     }
   },
   data(): Data {
     return {
       chatRoomMessages: undefined,
-      content: '',
+      content: ""
     };
   },
   computed: {
     loading(): boolean {
-      return this.chatRoomMessages === undefined
-    },
+      return this.chatRoomMessages === undefined;
+    }
   },
   created() {
     window.setTimeout(() => {
-      console.log(this.chatRoomMessages)
-    }, 2000)
+      console.log(this.chatRoomMessages);
+    }, 2000);
   },
   methods: {
     async addMessage() {
-      const newContent = this.content
-      this.content = ''
+      const newContent = this.content;
+      this.content = "";
 
       try {
         const result = await this.$apollo.mutate<CreateChatRoomMessage>({
           // Query
-          mutation: gql`mutation CreateChatRoomMessage($chatRoomId: ID!, $content: String!) {
-            createChatRoomMessage(input: { chatRoomId: $chatRoomId, content: $content }) {
-              chatRoomMessage {
-                id
-                content
-                createdAt
-              }
-            }
-          }`,
+          mutation: CREATE_CHAT_ROOM_MESSAGE,
           // Parameters
           variables: {
             chatRoomId: this.chatRoomId,
-            content: newContent,
+            content: newContent
           },
           update: (store, { data }) => {
             if (!data || !data.createChatRoomMessage) return;
 
-            const queryOptions = { query: GET_CHAT_ROOM_MESSAGES_QUERY, variables: { chatRoomId: this.chatRoomId } }
-            const cache = store.readQuery<GetChatRoomMessages>(queryOptions)
-            if (!cache) return
+            const queryOptions = {
+              query: CHAT_ROOM_MESSAGES,
+              variables: { chatRoomId: this.chatRoomId }
+            };
+            const cache = store.readQuery<ChatRoomMessages>(queryOptions);
+            if (!cache) return;
 
-            cache.chatRoomMessages.push(data.createChatRoomMessage.chatRoomMessage)
-            store.writeQuery({...queryOptions, data: cache})
-          },
-        })
-        console.log(result)
+            const chatRoomMessages = [
+              ...cache.chatRoomMessages,
+              data.createChatRoomMessage.chatRoomMessage
+            ];
+            store.writeQuery({ ...queryOptions, data: chatRoomMessages });
+          }
+        });
+        console.log(result);
       } catch (error) {
-        console.error(error)
-        this.content = newContent
+        console.error(error);
+        this.content = newContent;
       }
-    },
-  },
+    }
+  }
 });
 </script>
