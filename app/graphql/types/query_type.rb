@@ -10,6 +10,8 @@ module Types
     # def chat_room_messages(chat_room_id:)
     #   ChatRoomMessage.where(chat_room_id: chat_room_id).order(id: :desc)
     # end
+    add_field GraphQL::Types::Relay::NodeField
+    add_field GraphQL::Types::Relay::NodesField
 
     field :chat_room, Types::ChatRoomType, null: false do
       description 'チャットルームを取得します'

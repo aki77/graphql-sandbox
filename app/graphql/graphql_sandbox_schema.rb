@@ -15,4 +15,20 @@ class GraphqlSandboxSchema < GraphQL::Schema
   use GraphQL::Pagination::Connections
 
   use GraphQL::Batch
+
+  # @return [String] generate a unique ID for `object` using Rails's GlobalID library
+  def self.id_from_object(object, _type, _context)
+    object.to_global_id.to_s
+  end
+
+  # @return [Object] Load the object specified by `unique_id`, using Rails's GlobalID library
+  def self.object_from_id(unique_id, _context)
+    GlobalID::Locator.locate(unique_id)
+  end
+
+  def self.resolve_type(_type, _obj, _ctx)
+    Types::ChatRoomType
+  end
+
+  orphan_types(Types::ChatRoomType)
 end
