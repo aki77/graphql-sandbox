@@ -119,17 +119,11 @@ export default Vue.extend({
             const cache = store.readQuery<ChatRoomMessages>(queryOptions);
             if (!cache) return;
 
-            console.log(
-              cache,
-              cache.chatRoomMessages,
-              data.createChatRoomMessage.chatRoomMessage
-            );
-
             cache.chatRoomMessages.push(
               data.createChatRoomMessage.chatRoomMessage
             );
 
-            store.writeQuery({ ...queryOptions, data: cache.chatRoomMessages });
+            store.writeQuery({ ...queryOptions, data: cache });
           }
         });
         if (result.data?.createChatRoomMessage?.errors?.length) {
