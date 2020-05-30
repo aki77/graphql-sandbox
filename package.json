@@ -33,6 +33,6 @@
     "xo": "^0.30.0"
   },
   "scripts": {
-    "apollo-codegen": "cd app/javascript; npx apollo client:codegen --target typescript types"
+    "apollo-codegen": "cd app/javascript/src; npx apollo client:codegen --target typescript types"
   }
 }
