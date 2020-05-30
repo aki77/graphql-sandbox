@@ -8,6 +8,10 @@ const CREATE_CHAT_ROOM_MESSAGE = gql`
         content
         createdAt
       }
+      errors {
+        key
+        message
+      }
     }
   }
 `;

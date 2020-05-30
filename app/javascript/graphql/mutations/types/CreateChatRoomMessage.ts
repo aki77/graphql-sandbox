@@ -14,9 +14,22 @@ export interface CreateChatRoomMessage_createChatRoomMessage_chatRoomMessage {
   createdAt: any;
 }
 
+export interface CreateChatRoomMessage_createChatRoomMessage_errors {
+  __typename: "ModelError";
+  /**
+   * Which input value this error came from
+   */
+  key: string;
+  /**
+   * A description of the error
+   */
+  message: string;
+}
+
 export interface CreateChatRoomMessage_createChatRoomMessage {
   __typename: "CreateChatRoomMessagePayload";
-  chatRoomMessage: CreateChatRoomMessage_createChatRoomMessage_chatRoomMessage;
+  chatRoomMessage: CreateChatRoomMessage_createChatRoomMessage_chatRoomMessage | null;
+  errors: CreateChatRoomMessage_createChatRoomMessage_errors[];
 }
 
 export interface CreateChatRoomMessage {

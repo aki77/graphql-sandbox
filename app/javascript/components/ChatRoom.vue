@@ -110,7 +110,7 @@ export default Vue.extend({
             content: newContent
           },
           update: (store, { data }) => {
-            if (!data || !data.createChatRoomMessage) return;
+            if (!data?.createChatRoomMessage?.chatRoomMessage) return;
 
             const queryOptions = {
               query: CHAT_ROOM_MESSAGES,
@@ -119,14 +119,22 @@ export default Vue.extend({
             const cache = store.readQuery<ChatRoomMessages>(queryOptions);
             if (!cache) return;
 
-            const chatRoomMessages = [
-              ...cache.chatRoomMessages,
+            console.log(
+              cache,
+              cache.chatRoomMessages,
               data.createChatRoomMessage.chatRoomMessage
-            ];
-            store.writeQuery({ ...queryOptions, data: chatRoomMessages });
+            );
+
+            cache.chatRoomMessages.push(
+              data.createChatRoomMessage.chatRoomMessage
+            );
+
+            store.writeQuery({ ...queryOptions, data: cache.chatRoomMessages });
           }
         });
-        console.log(result);
+        if (result.data?.createChatRoomMessage?.errors?.length) {
+          console.error(result.data.createChatRoomMessage.errors);
+        }
       } catch (error) {
         console.error(error);
         this.content = newContent;
