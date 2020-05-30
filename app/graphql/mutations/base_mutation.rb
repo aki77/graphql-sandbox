@@ -7,6 +7,6 @@ module Mutations
     input_object_class Types::BaseInputObject
     object_class Types::BaseObject
 
-    field :errors, [Types::ModelError], null: false
+    field :errors, [Types::ModelError], null: true
   end
 end

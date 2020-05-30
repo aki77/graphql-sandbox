@@ -13,13 +13,13 @@ module Mutations
 
       if chat_room_message.save
         GraphqlSandboxSchema.subscriptions.trigger('chatRoomMessageWasCreated', { chatRoomId: chat_room.id }, chat_room_message)
-        { chat_room_message: chat_room_message, errors: [] }
+        { chat_room_message: chat_room_message }
       else
         errors = chat_room_message.errors.keys.flat_map do |key|
           chat_room_message.errors.full_messages_for(key).map { |message| { key: key, message: message } }
         end
 
-        { chat_room_message: nil, errors: errors }
+        { errors: errors }
       end
     end
   end

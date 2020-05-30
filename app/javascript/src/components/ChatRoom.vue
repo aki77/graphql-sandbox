@@ -90,16 +90,8 @@ export default Vue.extend({
       return this.chatRoomMessages === undefined;
     }
   },
-  created() {
-    window.setTimeout(() => {
-      console.log(this.chatRoomMessages);
-    }, 2000);
-  },
   methods: {
     async addMessage() {
-      const newContent = this.content;
-      this.content = "";
-
       try {
         const result = await this.$apollo.mutate<CreateChatRoomMessage>({
           // Query
@@ -107,7 +99,7 @@ export default Vue.extend({
           // Parameters
           variables: {
             chatRoomId: this.chatRoomId,
-            content: newContent
+            content: this.content
           },
           update: (store, { data }) => {
             if (!data?.createChatRoomMessage?.chatRoomMessage) return;
@@ -126,12 +118,15 @@ export default Vue.extend({
             store.writeQuery({ ...queryOptions, data: cache });
           }
         });
-        if (result.data?.createChatRoomMessage?.errors?.length) {
+
+        if (result.data?.createChatRoomMessage?.errors) {
           console.error(result.data.createChatRoomMessage.errors);
+          return;
         }
+
+        this.content = "";
       } catch (error) {
         console.error(error);
-        this.content = newContent;
       }
     }
   }

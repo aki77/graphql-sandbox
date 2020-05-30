@@ -29,7 +29,7 @@ export interface CreateChatRoomMessage_createChatRoomMessage_errors {
 export interface CreateChatRoomMessage_createChatRoomMessage {
   __typename: "CreateChatRoomMessagePayload";
   chatRoomMessage: CreateChatRoomMessage_createChatRoomMessage_chatRoomMessage | null;
-  errors: CreateChatRoomMessage_createChatRoomMessage_errors[];
+  errors: CreateChatRoomMessage_createChatRoomMessage_errors[] | null;
 }
 
 export interface CreateChatRoomMessage {
