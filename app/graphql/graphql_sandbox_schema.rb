@@ -26,9 +26,9 @@ class GraphqlSandboxSchema < GraphQL::Schema
     GlobalID::Locator.locate(unique_id)
   end
 
-  def self.resolve_type(_type, _obj, _ctx)
-    Types::ChatRoomType
+  def self.resolve_type(_type, obj, _ctx)
+    Types.const_get("#{obj.class.name}Type", false)
   end
 
-  orphan_types(Types::ChatRoomType)
+  orphan_types(Types::ChatRoomType, Types::ChatRoomMessageType)
 end
