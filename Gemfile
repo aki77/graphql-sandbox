@@ -21,6 +21,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'graphql'
 gem 'graphql-batch'
+gem 'graphql-guard'
 gem 'vue_custom_element_rails', github: 'SonicGarden/vue-custom-element-rails'
 gem 'redis'
 

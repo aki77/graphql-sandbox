@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class GraphqlSandboxSchema < GraphQL::Schema
-  max_complexity 100
-  max_depth 10
+  max_complexity 179
+  max_depth 13
 
   mutation(Types::MutationType)
   query(Types::QueryType)
@@ -18,6 +18,7 @@ class GraphqlSandboxSchema < GraphQL::Schema
   use GraphQL::Pagination::Connections
 
   use GraphQL::Batch
+  use GraphQL::Guard.new(policy_object: GraphqlPolicy)
 
   # @return [String] generate a unique ID for `object` using Rails's GlobalID library
   def self.id_from_object(object, _type, _context)
